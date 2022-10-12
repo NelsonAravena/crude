@@ -5,11 +5,11 @@ import {Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, Moda
 
 const data = [
   {id: 1, personaje: "Maria", juego: "Silent hill 2"},
-  {id: 1, personaje: "James", juego: "Silent hill 2"},
-  {id: 1, personaje: "Harry", juego: "Silent hill 1"},
-  {id: 1, personaje: "Heather", juego: "Silent hill 3"}
+  {id: 2, personaje: "James", juego: "Silent hill 2"},
+  {id: 3, personaje: "Harry", juego: "Silent hill 1"},
+  {id: 4, personaje: "Heather", juego: "Silent hill 3"}
 
-]
+];
 
 console.log(data)
 
@@ -19,7 +19,7 @@ state = {
   form:{
     id:'',
     personaje:'',
-    juego:'',
+    juego:''
   },
   modalinsertar : false,
 };
@@ -30,7 +30,7 @@ this.setState({
     ...this.state.form,
     [e.target.name]: e.target.value,
   }
-})
+});
 }
 
 mostrarmodalinsertar = () =>{
@@ -41,6 +41,13 @@ cerrarmodalinsertar = () =>{
   this.setState({modalinsertar: false})
 }
 
+insertar=()=>{
+  var valorNuevo = {...this.state.form};
+  valorNuevo.id = this.state.data.length+1;
+  var lista = this.state.data;
+  lista.push(valorNuevo);
+  this.setState({data: lista, modalinsertar: false});
+}
   render (){
     return(
       <> 
@@ -86,18 +93,18 @@ cerrarmodalinsertar = () =>{
 
           <FormGroup>
             <label>Personaje</label>
-            <input className='form-control' name ="personajes" type="text" onChange={this.handleChange} />
+            <input className='form-control' name ="personaje" type="text" onChange={this.handleChange} />
           </FormGroup>
 
           <FormGroup>
             <label>Juego</label>
-            <input className='form-control' name ="personajes" type="text" onChange={this.handleChange}/>
+            <input className='form-control' name ="juego" type="text" onChange={this.handleChange}/>
           </FormGroup>
         </ModalBody>
 
         <ModalFooter>
-          <Button color ="primary">insertar</Button>
-          <Button color ="danger" onClick={this.cerrarmodalinsertar}>cancelar</Button>
+          <Button color ="primary"onClick={()=>this.insertar()}>insertar</Button>
+          <Button color ="danger" onClick={()=>this.cerrarmodalinsertar()}>cancelar</Button>
         </ModalFooter>
       </Modal>
       </>
